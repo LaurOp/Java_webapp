@@ -1,7 +1,8 @@
 package com.example.unisync.Service;
 
 import com.example.unisync.Model.Course;
-import com.example.unisync.Repository.Course.CourseRepository;
+import com.example.unisync.Model.User;
+import com.example.unisync.Repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,5 +32,14 @@ public class CourseService implements BaseService<Course>{
     @Override
     public void delete(Long id) {
         courseRepository.deleteById(id);
+    }
+
+    public void save(Course course) {
+        courseRepository.save(course);
+    }
+
+    public void addUserToCourse(Course course, User user) {
+        course.getStudents().add(user);
+        courseRepository.save(course);
     }
 }

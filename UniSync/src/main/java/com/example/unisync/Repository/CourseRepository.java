@@ -1,4 +1,4 @@
-package com.example.unisync.Repository.Course;
+package com.example.unisync.Repository;
 
 import com.example.unisync.Model.Course;
 import com.example.unisync.Model.User;
@@ -25,4 +25,6 @@ public interface CourseRepository extends BaseRepository<Course, Long> {
     @Query("SELECT c FROM Course c JOIN FETCH c.messages WHERE c.id = :courseId")
     Course findCourseWithMessages(@Param("courseId") Long courseId);
 
+    @Query("SELECT c.students FROM Course c WHERE c.id = :courseId")
+    List<User> findUsersByCourseId(Long courseId);
 }

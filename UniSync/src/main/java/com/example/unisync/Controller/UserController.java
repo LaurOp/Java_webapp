@@ -48,4 +48,64 @@ public class UserController extends BaseController{
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PutMapping("/{userId}/assign-course-admin/{courseId}")
+    public ResponseEntity<String> assignCourseAdmin(
+            @PathVariable Long userId,
+            @PathVariable Long courseId) {
+
+        try {
+            // Check if both user and course exist
+            Optional<User> userOptional = userService.getById(userId);
+            Optional<Course> courseOptional = courseService.getById(courseId);
+
+            if (userOptional.isEmpty() || courseOptional.isEmpty()) {
+                return new ResponseEntity<>("User or Course not found", HttpStatus.NOT_FOUND);
+            }
+
+            User user = userOptional.get();
+            Course course = courseOptional.get();
+
+            if (user.isTeacher()){
+                course.setAdmin(user);
+                courseService.save(course);
+                return new ResponseEntity<>("User assigned as course admin successfully", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("User does not have permission to assign course admin; must be a teacher.", HttpStatus.FORBIDDEN);
+            }
+
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error assigning course admin: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/{userId}/add-student-to-course/{courseId}")
+    public ResponseEntity<String> addStudentToCourse(
+            @PathVariable Long userId,
+            @PathVariable Long courseId) {
+
+        try {
+            // Check if both user and course exist
+            Optional<User> userOptional = userService.getById(userId);
+            Optional<Course> courseOptional = courseService.getById(courseId);
+
+            if (userOptional.isEmpty() || courseOptional.isEmpty()) {
+                return new ResponseEntity<>("User or Course not found", HttpStatus.NOT_FOUND);
+            }
+
+            User user = userOptional.get();
+            Course course = courseOptional.get();
+
+            if (!user.isUniversity()) {
+                course.getStudents().add(user);
+                courseService.save(course);
+                return new ResponseEntity<>("Student added to course successfully", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("User is not a student or does not have permission", HttpStatus.FORBIDDEN);
+            }
+
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error adding student to course: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

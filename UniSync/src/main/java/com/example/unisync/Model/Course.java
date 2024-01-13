@@ -21,6 +21,14 @@ public class Course extends BaseModel {
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private List<Message> messages;
 
+    @ManyToMany
+    @JoinTable(
+            name = "course_student",
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id")
+    )
+    private List<User> students;
+
     public User getCreatedBy() {
         return createdBy;
     }
@@ -51,5 +59,13 @@ public class Course extends BaseModel {
 
     public void setMessages(List<Message> messages) {
         this.messages = messages;
+    }
+
+    public List<User> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<User> students) {
+        this.students = students;
     }
 }

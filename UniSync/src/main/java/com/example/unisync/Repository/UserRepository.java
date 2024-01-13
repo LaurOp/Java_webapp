@@ -1,4 +1,4 @@
-package com.example.unisync.Repository.User;
+package com.example.unisync.Repository;
 
 import com.example.unisync.Model.User;
 import com.example.unisync.Repository.BaseRepository;
@@ -32,4 +32,7 @@ public interface UserRepository extends BaseRepository<User, Long> {
 
     @Query("SELECT u FROM User u JOIN FETCH u.messages WHERE u.id = :userId")
     Optional<User> findUserWithMessages(@Param("userId") Long userId);
+
+    @Query("SELECT u FROM User u WHERE u.id IN :userIds")
+    List<User> findUsersByIds(List<Long> userIds);
 }

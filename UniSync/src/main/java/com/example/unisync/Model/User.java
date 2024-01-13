@@ -2,6 +2,7 @@ package com.example.unisync.Model;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 
 import java.util.List;
@@ -15,6 +16,8 @@ public class User extends BaseModel {
     private String password;
     private String email;
 
+    @ManyToMany(mappedBy = "students")
+    private List<Course> enrolledCourses;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Message> messages;
@@ -109,5 +112,13 @@ public class User extends BaseModel {
 
     public void setReplies(List<Reply> replies) {
         this.replies = replies;
+    }
+
+    public List<Course> getEnrolledCourses() {
+        return enrolledCourses;
+    }
+
+    public void setEnrolledCourses(List<Course> enrolledCourses) {
+        this.enrolledCourses = enrolledCourses;
     }
 }
