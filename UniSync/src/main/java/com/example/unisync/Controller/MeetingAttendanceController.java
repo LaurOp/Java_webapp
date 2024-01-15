@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.example.unisync.Constants.ATTENDANCE_MARKED_SUCCESSFULLY;
+import static com.example.unisync.Constants.ERROR_MARKING_ATTENDANCE;
+
 @RestController
 @RequestMapping("/api/attendance")
 public class MeetingAttendanceController extends BaseController{
@@ -31,9 +34,9 @@ public class MeetingAttendanceController extends BaseController{
                     attendanceDTO.getMeetingId(),
                     attendanceDTO.getAttendanceStatus()
             );
-            return new ResponseEntity<>("Attendance marked successfully", HttpStatus.OK);
+            return new ResponseEntity<>(ATTENDANCE_MARKED_SUCCESSFULLY, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>("Error marking attendance: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(ERROR_MARKING_ATTENDANCE + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -41,7 +44,7 @@ public class MeetingAttendanceController extends BaseController{
     public ResponseEntity<List<MeetingAttendanceDTO>> getFutureAttendancesForUser(@PathVariable Long userId) {
         try {
             List<MeetingAttendance> futureAttendances = meetingAttendanceService.getFutureAttendancesForUser(userId);
-            return new ResponseEntity<List<MeetingAttendanceDTO>>(meetingAttendanceMapper.map(futureAttendances), HttpStatus.OK);
+            return new ResponseEntity<>(meetingAttendanceMapper.map(futureAttendances), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

@@ -1,8 +1,6 @@
 package com.example.unisync.Service;
 
-import com.example.unisync.Model.Message;
 import com.example.unisync.Model.MessageLike;
-import com.example.unisync.Model.User;
 import com.example.unisync.Repository.MessageLikeRepository;
 import com.example.unisync.Repository.MessageRepository;
 import com.example.unisync.Repository.UserRepository;

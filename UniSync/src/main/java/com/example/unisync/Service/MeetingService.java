@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static com.example.unisync.Constants.*;
+
 @Service
 public class MeetingService implements BaseService<Meeting>{
 
@@ -49,11 +51,11 @@ public class MeetingService implements BaseService<Meeting>{
     }
 
     public Meeting createMeeting(Long teacherUserId, Long courseId, Meeting meeting) throws NotFoundException {
-        User teacher = userRepository.findById(teacherUserId).orElseThrow(() -> new NotFoundException("Teacher not found"));
-        Course course = courseRepository.findById(courseId).orElseThrow(() -> new NotFoundException("Course not found"));
+        User teacher = userRepository.findById(teacherUserId).orElseThrow(() -> new NotFoundException(TEACHER_NOT_FOUND));
+        Course course = courseRepository.findById(courseId).orElseThrow(() -> new NotFoundException(COURSE_NOT_FOUND));
 
         if (!teacher.isTeacher()) {
-            throw new NotFoundException("User is not a teacher");
+            throw new NotFoundException(USER_IS_NOT_A_TEACHER);
         }
 
         meeting.setCourse(course);
@@ -67,8 +69,8 @@ public class MeetingService implements BaseService<Meeting>{
     }
 
     public Meeting createMeetingWithInvitations(Long teacherUserId, Long courseId, Meeting meeting, List<Long> invitedUserIds) {
-        meeting.setCreatedBy(userRepository.findById(teacherUserId).orElseThrow(() -> new NotFoundException("Teacher not found")));
-        meeting.setCourse(courseRepository.findById(courseId).orElseThrow(() -> new NotFoundException("Course not found")));
+        meeting.setCreatedBy(userRepository.findById(teacherUserId).orElseThrow(() -> new NotFoundException(TEACHER_NOT_FOUND)));
+        meeting.setCourse(courseRepository.findById(courseId).orElseThrow(() -> new NotFoundException(COURSE_NOT_FOUND)));
         Meeting createdMeeting = meetingRepository.save(meeting);
 
         createInvitationsForCourseMembers(createdMeeting, courseId, invitedUserIds);

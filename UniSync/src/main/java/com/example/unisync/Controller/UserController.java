@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+import static com.example.unisync.Constants.*;
+
 @RestController
 @RequestMapping("/api/users")
 public class UserController extends BaseController{
-
     private final UserService userService;
     private final CourseService courseService;
     private final UserMapper userMapper;
@@ -33,13 +34,13 @@ public class UserController extends BaseController{
         try {
             Optional<User> user = userService.getById(userId);
             if (user.isEmpty()) {
-                return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(USER_NOT_FOUND, HttpStatus.NOT_FOUND);
             }
 
             userService.createCourseIfUniversity(user.get(), course);
-            return new ResponseEntity<>("Course created successfully", HttpStatus.CREATED);
+            return new ResponseEntity<>(COURSE_CREATED_SUCCESSFULLY, HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>("Error creating course: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(ERROR_CREATING_COURSE + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -63,7 +64,7 @@ public class UserController extends BaseController{
             Optional<Course> courseOptional = courseService.getById(courseId);
 
             if (userOptional.isEmpty() || courseOptional.isEmpty()) {
-                return new ResponseEntity<>("User or Course not found", HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(USER_OR_COURSE_NOT_FOUND, HttpStatus.NOT_FOUND);
             }
 
             User user = userOptional.get();
@@ -72,13 +73,13 @@ public class UserController extends BaseController{
             if (user.isTeacher()){
                 course.setAdmin(user);
                 courseService.save(course);
-                return new ResponseEntity<>("User assigned as course admin successfully", HttpStatus.OK);
+                return new ResponseEntity<>(USER_ASSIGNED_AS_COURSE_ADMIN_SUCCESSFULLY, HttpStatus.OK);
             } else {
-                return new ResponseEntity<>("User does not have permission to assign course admin; must be a teacher.", HttpStatus.FORBIDDEN);
+                return new ResponseEntity<>(ADMIN_MUST_BE_A_TEACHER, HttpStatus.FORBIDDEN);
             }
 
         } catch (Exception e) {
-            return new ResponseEntity<>("Error assigning course admin: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(ERROR_ASSIGNING_COURSE_ADMIN + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -92,7 +93,7 @@ public class UserController extends BaseController{
             Optional<Course> courseOptional = courseService.getById(courseId);
 
             if (userOptional.isEmpty() || courseOptional.isEmpty()) {
-                return new ResponseEntity<>("User or Course not found", HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(USER_OR_COURSE_NOT_FOUND, HttpStatus.NOT_FOUND);
             }
 
             User user = userOptional.get();
@@ -101,13 +102,13 @@ public class UserController extends BaseController{
             if (!user.isUniversity()) {
                 course.getStudents().add(user);
                 courseService.save(course);
-                return new ResponseEntity<>("Student added to course successfully", HttpStatus.OK);
+                return new ResponseEntity<>(TO_COURSE_SUCCESSFULLY, HttpStatus.OK);
             } else {
-                return new ResponseEntity<>("User is not a student or does not have permission", HttpStatus.FORBIDDEN);
+                return new ResponseEntity<>(DOES_NOT_HAVE_PERMISSION, HttpStatus.FORBIDDEN);
             }
 
         } catch (Exception e) {
-            return new ResponseEntity<>("Error adding student to course: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(ERROR_ADDING_STUDENT_TO_COURSE + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -121,21 +122,21 @@ public class UserController extends BaseController{
             Optional<Course> courseOptional = courseService.getById(courseId);
 
             if (userOptional.isEmpty() || courseOptional.isEmpty()) {
-                return new ResponseEntity<>("User or Course not found", HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(USER_OR_COURSE_NOT_FOUND, HttpStatus.NOT_FOUND);
             }
 
             User student = userOptional.get();
             Course course = courseOptional.get();
 
             if (student.getEnrolledCourses().contains(course)) {
-                return new ResponseEntity<>("User is already enrolled in the course", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(ALREADY_ENROLLED_IN_THE_COURSE, HttpStatus.BAD_REQUEST);
             }
 
             userService.enrollStudentInCourse(student, course);
 
-            return new ResponseEntity<>("Enrolled in the course successfully", HttpStatus.OK);
+            return new ResponseEntity<>(ENROLLED_IN_THE_COURSE_SUCCESSFULLY, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>("Error enrolling in the course: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(ERROR_ENROLLING_IN_THE_COURSE + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

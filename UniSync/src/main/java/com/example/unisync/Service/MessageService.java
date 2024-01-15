@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static com.example.unisync.Constants.*;
+
 @Service
 public class MessageService implements BaseService<Message>{
     private final MessageRepository messageRepository;
@@ -51,11 +53,11 @@ public class MessageService implements BaseService<Message>{
     }
 
     public Message postMessage(MessageDTO messageDTO) {
-        User user = userRepository.findById(messageDTO.getUserId()).orElseThrow(() -> new EntityNotFoundException("User not found"));
-        Course course = courseRepository.findById(messageDTO.getcourseId()).orElseThrow(() -> new EntityNotFoundException("Channel not found"));
+        User user = userRepository.findById(messageDTO.getUserId()).orElseThrow(() -> new EntityNotFoundException(USER_NOT_FOUND));
+        Course course = courseRepository.findById(messageDTO.getcourseId()).orElseThrow(() -> new EntityNotFoundException(COURSE_NOT_FOUND));
 
         if (!user.getEnrolledCourses().contains(course)) {
-            throw new UnauthorizedException("User is not part of the course. Cannot post message.");
+            throw new UnauthorizedException(PART_OF_THE_COURSE_CANNOT_POST_MESSAGE);
         }
 
         Message message = new Message();
@@ -75,11 +77,11 @@ public class MessageService implements BaseService<Message>{
     }
 
     public Reply postReply(ReplyDTO replyDTO) {
-        User user = userRepository.findById(replyDTO.getUserId()).orElseThrow(() -> new EntityNotFoundException("User not found"));
-        Message parentMessage = messageRepository.findById(replyDTO.getParentMessageId()).orElseThrow(() -> new EntityNotFoundException("Parent message not found"));
+        User user = userRepository.findById(replyDTO.getUserId()).orElseThrow(() -> new EntityNotFoundException(USER_NOT_FOUND));
+        Message parentMessage = messageRepository.findById(replyDTO.getParentMessageId()).orElseThrow(() -> new EntityNotFoundException(PARENT_MESSAGE_NOT_FOUND));
 
         if (!user.getEnrolledCourses().contains(parentMessage.getCourse())) {
-            throw new UnauthorizedException("User is not part of the course. Cannot post reply.");
+            throw new UnauthorizedException(PART_OF_THE_COURSE_CANNOT_POST_REPLY);
         }
 
         Reply reply = new Reply();
