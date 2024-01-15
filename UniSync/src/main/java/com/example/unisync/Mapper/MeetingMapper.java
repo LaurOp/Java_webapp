@@ -23,6 +23,7 @@ public class MeetingMapper {
         meetingDTO.setId(meeting.getId());
         meetingDTO.setTitle(meeting.getTitle());
         meetingDTO.setStartTime(meeting.getStartTime());
+        meetingDTO.setInvitedUserIds(meeting.getMeetingAttendances().stream().map(invitation -> invitation.getUser().getId()).collect(Collectors.toList()));
         return meetingDTO;
     }
 

@@ -17,4 +17,10 @@ public class BaseModel implements Serializable {
         return id;
     }
 
+    public BaseModel(Long id) {
+        this.id = id;
+    }
+
+    public BaseModel() {
+    }
 }

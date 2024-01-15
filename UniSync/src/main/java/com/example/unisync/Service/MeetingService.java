@@ -22,13 +22,15 @@ public class MeetingService implements BaseService<Meeting>{
     private final UserRepository userRepository;
     private final CourseRepository courseRepository;
     private final InvitationRepository invitationRepository;
+    private final MeetingAttendanceService meetingAttendanceService;
 
     @Autowired
-    public MeetingService(MeetingRepository meetingRepository, UserRepository userRepository, CourseRepository courseRepository, InvitationRepository invitationRepository){
+    public MeetingService(MeetingRepository meetingRepository, UserRepository userRepository, CourseRepository courseRepository, InvitationRepository invitationRepository, MeetingAttendanceService meetingAttendanceService){
         this.meetingRepository = meetingRepository;
         this.userRepository = userRepository;
         this.courseRepository = courseRepository;
         this.invitationRepository = invitationRepository;
+        this.meetingAttendanceService = meetingAttendanceService;
     }
 
     @Override
@@ -70,6 +72,7 @@ public class MeetingService implements BaseService<Meeting>{
         Meeting createdMeeting = meetingRepository.save(meeting);
 
         createInvitationsForCourseMembers(createdMeeting, courseId, invitedUserIds);
+        createDefaultAttendancesForCourseMembers(createdMeeting, courseId, invitedUserIds);
 
         return createdMeeting;
     }
@@ -95,4 +98,14 @@ public class MeetingService implements BaseService<Meeting>{
         }
     }
 
+
+    private void createDefaultAttendancesForCourseMembers(Meeting meeting, Long courseId, List<Long> invitedUserIds) {
+        List<User> courseMembers = userRepository.findAllUsersInACourse(courseId);
+
+        for (User member : courseMembers) {
+            if (!invitedUserIds.contains(member.getId())) {
+                meetingAttendanceService.createDefaultAttendance(member.getId(), meeting.getId());
+            }
+        }
+    }
 }

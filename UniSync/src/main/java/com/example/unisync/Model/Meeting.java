@@ -16,12 +16,22 @@ public class Meeting extends BaseModel {
     @JoinColumn(name = "created_by_id")
     private User createdBy;
 
+    @OneToMany(mappedBy = "meeting", cascade = CascadeType.ALL)
+    private List<MeetingAttendance> meetingAttendances;
+
     private String title;
 
     private LocalDateTime startTime;
 
     @OneToMany(mappedBy = "meeting", cascade = CascadeType.ALL)
     private List<Invitation> invitations;
+
+    public Meeting(Long id) {
+        super(id);
+    }
+
+    public Meeting() {
+    }
 
     public Course getCourse() {
         return course;
@@ -61,5 +71,13 @@ public class Meeting extends BaseModel {
 
     public void setInvitations(List<Invitation> invitations) {
         this.invitations = invitations;
+    }
+
+    public List<MeetingAttendance> getMeetingAttendances() {
+        return meetingAttendances;
+    }
+
+    public void setMeetingAttendances(List<MeetingAttendance> meetingAttendances) {
+        this.meetingAttendances = meetingAttendances;
     }
 }

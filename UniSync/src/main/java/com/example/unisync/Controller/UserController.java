@@ -1,5 +1,7 @@
 package com.example.unisync.Controller;
 
+import com.example.unisync.DTO.UserDTO;
+import com.example.unisync.Mapper.UserMapper;
 import com.example.unisync.Model.Course;
 import com.example.unisync.Model.User;
 import com.example.unisync.Service.CourseService;
@@ -17,11 +19,13 @@ public class UserController extends BaseController{
 
     private final UserService userService;
     private final CourseService courseService;
+    private final UserMapper userMapper;
 
     @Autowired
-    public UserController(UserService userService, CourseService courseService) {
+    public UserController(UserService userService, CourseService courseService, UserMapper userMapper) {
         this.userService = userService;
         this.courseService = courseService;
+        this.userMapper = userMapper;
     }
 
     @PostMapping("/{userId}/CreateCourse")
@@ -40,10 +44,10 @@ public class UserController extends BaseController{
     }
 
     @PostMapping("/create")
-    public ResponseEntity<User> createUserEndpoint(@RequestBody User user) {
+    public ResponseEntity<UserDTO> createUserEndpoint(@RequestBody UserDTO user) {
         try {
-            User createdUser = userService.createUser(user);
-            return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+            User createdUser = userService.createUser(userMapper.map(user));
+            return new ResponseEntity<>(userMapper.map(createdUser), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -55,7 +59,6 @@ public class UserController extends BaseController{
             @PathVariable Long courseId) {
 
         try {
-            // Check if both user and course exist
             Optional<User> userOptional = userService.getById(userId);
             Optional<Course> courseOptional = courseService.getById(courseId);
 
@@ -85,7 +88,6 @@ public class UserController extends BaseController{
             @PathVariable Long courseId) {
 
         try {
-            // Check if both user and course exist
             Optional<User> userOptional = userService.getById(userId);
             Optional<Course> courseOptional = courseService.getById(courseId);
 
@@ -106,6 +108,34 @@ public class UserController extends BaseController{
 
         } catch (Exception e) {
             return new ResponseEntity<>("Error adding student to course: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/{userId}/enroll-in-course/{courseId}")
+    public ResponseEntity<String> enrollInCourse(
+            @PathVariable Long userId,
+            @PathVariable Long courseId) {
+
+        try {
+            Optional<User> userOptional = userService.getById(userId);
+            Optional<Course> courseOptional = courseService.getById(courseId);
+
+            if (userOptional.isEmpty() || courseOptional.isEmpty()) {
+                return new ResponseEntity<>("User or Course not found", HttpStatus.NOT_FOUND);
+            }
+
+            User student = userOptional.get();
+            Course course = courseOptional.get();
+
+            if (student.getEnrolledCourses().contains(course)) {
+                return new ResponseEntity<>("User is already enrolled in the course", HttpStatus.BAD_REQUEST);
+            }
+
+            userService.enrollStudentInCourse(student, course);
+
+            return new ResponseEntity<>("Enrolled in the course successfully", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error enrolling in the course: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

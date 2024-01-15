@@ -35,4 +35,7 @@ public interface UserRepository extends BaseRepository<User, Long> {
 
     @Query("SELECT u FROM User u WHERE u.id IN :userIds")
     List<User> findUsersByIds(List<Long> userIds);
+
+    @Query("SELECT u FROM User u JOIN FETCH u.enrolledCourses c WHERE c.id = :courseId")
+    List<User> findAllUsersInACourse(@Param("courseId") Long courseId);
 }

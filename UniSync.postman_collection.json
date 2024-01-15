@@ -1,0 +1,247 @@
+{
+	"info": {
+		"_postman_id": "9b7c8393-d546-4e4b-9451-d521c722b725",
+		"name": "UniSync",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17906935"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "Create user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"john_doe\",\r\n    \"password\": \"password123\",\r\n    \"email\": \"john.doe@example.com\",\r\n    \"university\": false,\r\n    \"teacher\": true\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/users/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"users",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create course by user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"john_doe\",\r\n    \"password\": \"password123\",\r\n    \"email\": \"john.doe@example.com\",\r\n    \"isUniversity\": true,\r\n    \"isTeacher\": false\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/users/1/EmptyCourse",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"users",
+								"1",
+								"EmptyCourse"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Assign Course id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/users/8/assign-course-admin/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"users",
+								"8",
+								"assign-course-admin",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add user to course",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/users/6/assign-course-admin/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"users",
+								"6",
+								"assign-course-admin",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Join Course id",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/users/5/enroll-in-course/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"users",
+								"5",
+								"enroll-in-course",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "meeting",
+			"item": [
+				{
+					"name": "Create meeting by teacher for course",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Team Meeting\",\r\n  \"startTime\": \"2022-02-01T10:00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/meetings/create/6/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"meetings",
+								"create",
+								"6",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All meeting in a course",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/meeting/byCourse/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"meeting",
+								"byCourse",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Attendance",
+			"item": [
+				{
+					"name": "Mark Attendance",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": 2,\r\n  \"meetingId\": 2,\r\n  \"attendanceStatus\": \"WILL_NOT_ATTEND\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/attendance/mark-as",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"attendance",
+								"mark-as"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get future meetings user",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -43,6 +43,13 @@ public class UserService implements BaseService<User> {
         }
     }
 
+    public void enrollStudentInCourse(User student, Course course) {
+        student.getEnrolledCourses().add(course);
+        course.getStudents().add(student);
+        courseRepository.save(course);
+        userRepository.save(student);
+    }
+
     public User createUser(User user) {
         return userRepository.save(user);
     }

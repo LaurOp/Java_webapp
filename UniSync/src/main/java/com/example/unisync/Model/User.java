@@ -16,6 +16,14 @@ public class User extends BaseModel {
     private String password;
     private String email;
 
+    public User(Long id) {
+        super(id);
+    }
+
+    public User() {
+        super();
+    }
+
     @ManyToMany(mappedBy = "students")
     private List<Course> enrolledCourses;
 
@@ -33,6 +41,9 @@ public class User extends BaseModel {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Reply> replies;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<MeetingAttendance> meetingAttendances;
 
     public boolean isUniversity() {
         return isUniversity;
@@ -120,5 +131,13 @@ public class User extends BaseModel {
 
     public void setEnrolledCourses(List<Course> enrolledCourses) {
         this.enrolledCourses = enrolledCourses;
+    }
+
+    public List<MeetingAttendance> getMeetingAttendances() {
+        return meetingAttendances;
+    }
+
+    public void setMeetingAttendances(List<MeetingAttendance> meetingAttendances) {
+        this.meetingAttendances = meetingAttendances;
     }
 }
