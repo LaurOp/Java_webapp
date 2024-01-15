@@ -5,14 +5,16 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Reply extends BaseModel {
-
+public class Reply extends Message {
     @ManyToOne
-    @JoinColumn(name = "message_id")
-    private Message message;
+    @JoinColumn(name = "parent_message_id")
+    private Message parentMessage;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    public Message getParentMessage() {
+        return parentMessage;
+    }
 
+    public void setParentMessage(Message parentMessage) {
+        this.parentMessage = parentMessage;
+    }
 }

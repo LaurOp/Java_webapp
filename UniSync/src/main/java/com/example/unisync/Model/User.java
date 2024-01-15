@@ -43,6 +43,9 @@ public class User extends BaseModel {
     private List<Reply> replies;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<MessageLike> messageLikes;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<MeetingAttendance> meetingAttendances;
 
     public boolean isUniversity() {
@@ -139,5 +142,13 @@ public class User extends BaseModel {
 
     public void setMeetingAttendances(List<MeetingAttendance> meetingAttendances) {
         this.meetingAttendances = meetingAttendances;
+    }
+
+    public List<MessageLike> getMessageLikes() {
+        return messageLikes;
+    }
+
+    public void setMessageLikes(List<MessageLike> messageLikes) {
+        this.messageLikes = messageLikes;
     }
 }
