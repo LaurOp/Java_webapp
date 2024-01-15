@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.example.unisync.Constants.ATTENDANCE_MARKED_SUCCESSFULLY;
-import static com.example.unisync.Constants.ERROR_MARKING_ATTENDANCE;
+import static com.example.unisync.Config.Constants.ATTENDANCE_MARKED_SUCCESSFULLY;
+import static com.example.unisync.Config.Constants.ERROR_MARKING_ATTENDANCE;
 
 @RestController
 @RequestMapping("/api/attendance")

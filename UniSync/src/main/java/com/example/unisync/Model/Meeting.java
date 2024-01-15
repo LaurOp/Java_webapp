@@ -3,6 +3,7 @@ package com.example.unisync.Model;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,7 +18,7 @@ public class Meeting extends BaseModel {
     private User createdBy;
 
     @OneToMany(mappedBy = "meeting", cascade = CascadeType.ALL)
-    private List<MeetingAttendance> meetingAttendances;
+    private List<MeetingAttendance> meetingAttendances = new ArrayList<>();
 
     private String title;
 

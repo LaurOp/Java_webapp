@@ -7,16 +7,19 @@ import com.example.unisync.Mapper.MessageMapper;
 import com.example.unisync.Model.Message;
 import com.example.unisync.Service.MessageLikeService;
 import com.example.unisync.Service.MessageService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static com.example.unisync.Constants.*;
+import static com.example.unisync.Config.Constants.*;
 
 @RestController
 @RequestMapping("/api/message")
+@Api(tags = "Message Controller", description = "Operations related to messages")
 public class MessageController extends BaseController{
     private final MessageService messageService;
     private final MessageMapper messageMapper;
@@ -30,6 +33,7 @@ public class MessageController extends BaseController{
     }
 
     @PostMapping("/post")
+    @ApiOperation(value = "Write a new message", notes = "Post a new message as a user in a course you are enrolled in")
     public ResponseEntity<MessageDTO> postMessage(@RequestBody MessageDTO messageDTO) {
         try {
             Message postedMessage = messageService.postMessage(messageDTO);
@@ -45,6 +49,7 @@ public class MessageController extends BaseController{
     }
 
     @PostMapping("/{messageId}/like/{userId}")
+    @ApiOperation(value = "Like a message", notes = "Like a message as a user in a course channel you are enrolled in")
     public ResponseEntity<String> likeMessage(@PathVariable Long messageId, @PathVariable Long userId) {
         try {
             messageLikeService.likeMessage(userId, messageId);
@@ -55,6 +60,7 @@ public class MessageController extends BaseController{
     }
 
     @PostMapping("/{messageId}/unlike/{userId}")
+    @ApiOperation(value = "Unlike a message", notes = "Unlike one of your liked messages as a user in a course channel you are enrolled in")
     public ResponseEntity<String> unlikeMessage(@PathVariable Long messageId, @PathVariable Long userId) {
         try {
             messageLikeService.unlikeMessage(userId, messageId);
@@ -65,6 +71,7 @@ public class MessageController extends BaseController{
     }
 
     @PostMapping("/reply")
+    @ApiOperation(value = "Reply to a message", notes = "Reply to a message as a user in a course channel you are enrolled in")
     public ResponseEntity<String> createReply(@RequestBody ReplyDTO replyDTO) {
         try {
             messageService.postReply(replyDTO);

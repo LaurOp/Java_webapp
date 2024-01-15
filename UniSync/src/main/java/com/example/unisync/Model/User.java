@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,28 +26,28 @@ public class User extends BaseModel {
     }
 
     @ManyToMany(mappedBy = "students")
-    private List<Course> enrolledCourses;
+    private List<Course> enrolledCourses = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Message> messages;
+    private List<Message> messages = new ArrayList<>();
 
     @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL)
-    private List<Course> createdCourses;
+    private List<Course> createdCourses = new ArrayList<>();
 
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
-    private List<Course> administeredCourses;
+    private List<Course> administeredCourses = new ArrayList<>();
 
     @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL)
-    private List<Meeting> createdMeetings;
+    private List<Meeting> createdMeetings = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Reply> replies;
+    private List<Reply> replies = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<MessageLike> messageLikes;
+    private List<MessageLike> messageLikes = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<MeetingAttendance> meetingAttendances;
+    private List<MeetingAttendance> meetingAttendances = new ArrayList<>();
 
     public boolean isUniversity() {
         return isUniversity;

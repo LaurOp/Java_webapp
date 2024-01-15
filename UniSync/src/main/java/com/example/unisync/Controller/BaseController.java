@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import static com.example.unisync.Constants.AN_ERROR_OCCURRED;
+import static com.example.unisync.Config.Constants.AN_ERROR_OCCURRED;
 
 @RestControllerAdvice
 public class BaseController {

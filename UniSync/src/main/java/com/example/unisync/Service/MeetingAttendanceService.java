@@ -1,9 +1,7 @@
 package com.example.unisync.Service;
 
-import com.example.unisync.Model.AttendanceStatus;
-import com.example.unisync.Model.Meeting;
+import com.example.unisync.Config.AttendanceStatus;
 import com.example.unisync.Model.MeetingAttendance;
-import com.example.unisync.Model.User;
 import com.example.unisync.Repository.MeetingAttendanceRepository;
 import com.example.unisync.Repository.MeetingRepository;
 import com.example.unisync.Repository.UserRepository;

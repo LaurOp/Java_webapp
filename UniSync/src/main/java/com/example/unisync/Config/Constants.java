@@ -1,4 +1,4 @@
-package com.example.unisync;
+package com.example.unisync.Config;
 
 public class Constants {
 
@@ -30,7 +30,8 @@ public class Constants {
     public static final String PART_OF_THE_COURSE_CANNOT_POST_MESSAGE = "User is not part of the course. Cannot post message.";
     public static final String PARENT_MESSAGE_NOT_FOUND = "Parent message not found";
     public static final String PART_OF_THE_COURSE_CANNOT_POST_REPLY = "User is not part of the course. Cannot post reply.";
-
+    public static final String TEST_REPLY_CONTENT = "Test reply content";
+    public static final String TEST_MESSAGE_CONTENT = "Test message content";
     private void AppConstants() {
     }
 }

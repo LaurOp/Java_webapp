@@ -2,6 +2,7 @@ package com.example.unisync.Model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,10 +17,10 @@ public class Course extends BaseModel {
     private User admin;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
-    private List<Meeting> meetings;
+    private List<Meeting> meetings = new ArrayList<>();
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
-    private List<Message> messages;
+    private List<Message> messages = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
@@ -27,7 +28,17 @@ public class Course extends BaseModel {
             joinColumns = @JoinColumn(name = "course_id"),
             inverseJoinColumns = @JoinColumn(name = "student_id")
     )
-    private List<User> students;
+
+
+    private List<User> students = new ArrayList<>();
+
+    public Course(Long id) {
+        super(id);
+    }
+
+    public Course() {
+        super();
+    }
 
     public User getCreatedBy() {
         return createdBy;

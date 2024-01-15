@@ -2,25 +2,33 @@ package com.example.unisync.Model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Message extends BaseModel {
 
+    public Message() {
+    }
+
+    public Message(Long id){
+        super(id);
+    }
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
     @OneToMany(mappedBy = "parentMessage", cascade = CascadeType.ALL)
-    private List<Reply> replies = List.of();
+    private List<Reply> replies = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Course course;
 
     @OneToMany(mappedBy = "message", cascade = CascadeType.ALL)
-    private List<MessageLike> likes = List.of();
+    private List<MessageLike> likes = new ArrayList<>();
 
     private String content;
 

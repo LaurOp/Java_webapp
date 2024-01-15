@@ -1,6 +1,6 @@
 package com.example.unisync.DTO;
 
-import com.example.unisync.Model.AttendanceStatus;
+import com.example.unisync.Config.AttendanceStatus;
 
 public class MeetingAttendanceDTO extends BaseDto{
         private Long userId;

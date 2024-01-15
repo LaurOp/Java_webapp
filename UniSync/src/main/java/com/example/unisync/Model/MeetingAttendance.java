@@ -1,5 +1,6 @@
 package com.example.unisync.Model;
 
+import com.example.unisync.Config.AttendanceStatus;
 import jakarta.persistence.*;
 
 @Entity

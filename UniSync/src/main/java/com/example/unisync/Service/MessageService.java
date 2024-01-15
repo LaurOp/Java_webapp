@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-import static com.example.unisync.Constants.*;
+import static com.example.unisync.Config.Constants.*;
 
 @Service
 public class MessageService implements BaseService<Message>{

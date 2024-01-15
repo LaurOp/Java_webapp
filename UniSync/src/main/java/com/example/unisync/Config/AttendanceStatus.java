@@ -1,4 +1,4 @@
-package com.example.unisync.Model;
+package com.example.unisync.Config;
 
 public enum AttendanceStatus {
     WILL_ATTEND,

@@ -38,8 +38,4 @@ public class CourseService implements BaseService<Course>{
         courseRepository.save(course);
     }
 
-    public void addUserToCourse(Course course, User user) {
-        course.getStudents().add(user);
-        courseRepository.save(course);
-    }
 }

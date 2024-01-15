@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-import static com.example.unisync.Constants.*;
+import static com.example.unisync.Config.Constants.*;
 
 @RestController
 @RequestMapping("/api/users")
