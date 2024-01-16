@@ -7,7 +7,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 import static com.example.unisync.Config.Constants.INVALID_EMAIL_FORMAT;
-import static java.lang.annotation.ElementType.*;
+import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Constraint(validatedBy = EmailValidator.class)

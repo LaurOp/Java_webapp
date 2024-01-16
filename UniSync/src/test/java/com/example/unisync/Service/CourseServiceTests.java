@@ -1,14 +1,12 @@
 package com.example.unisync.Service;
 
 import com.example.unisync.Model.Course;
-import com.example.unisync.Model.User;
 import com.example.unisync.Repository.CourseRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;

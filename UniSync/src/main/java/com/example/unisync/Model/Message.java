@@ -16,6 +16,11 @@ public class Message extends BaseModel {
         super(id);
     }
 
+    public Message(Long id, String content){
+        super(id);
+        this.content = content;
+    }
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

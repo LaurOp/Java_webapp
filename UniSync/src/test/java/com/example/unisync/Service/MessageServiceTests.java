@@ -20,8 +20,8 @@ import java.util.Collections;
 import java.util.Optional;
 
 import static com.example.unisync.Config.Constants.*;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 public class MessageServiceTests {

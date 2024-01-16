@@ -1,7 +1,6 @@
 package com.example.unisync.Mapper;
 
 import com.example.unisync.DTO.MeetingDTO;
-import com.example.unisync.Model.Course;
 import com.example.unisync.Model.Meeting;
 import org.springframework.stereotype.Component;
 

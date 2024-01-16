@@ -7,19 +7,13 @@ import com.example.unisync.Model.Course;
 import com.example.unisync.Model.User;
 import com.example.unisync.Service.CourseService;
 import com.example.unisync.Service.UserService;
-import com.example.unisync.Exception.LocalExceptionHandler;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static com.example.unisync.Config.Constants.*;
 

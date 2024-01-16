@@ -17,4 +17,16 @@ public class Reply extends Message {
     public void setParentMessage(Message parentMessage) {
         this.parentMessage = parentMessage;
     }
+
+    public Reply() {
+        super();
+    }
+
+    public Reply(Long id) {
+        super(id);
+    }
+
+    public Reply(Long id, String content) {
+        super(id, content);
+    }
 }

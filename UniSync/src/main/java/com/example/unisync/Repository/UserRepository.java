@@ -1,7 +1,6 @@
 package com.example.unisync.Repository;
 
 import com.example.unisync.Model.User;
-import com.example.unisync.Repository.BaseRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 

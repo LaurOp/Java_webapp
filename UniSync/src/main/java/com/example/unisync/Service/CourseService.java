@@ -1,7 +1,6 @@
 package com.example.unisync.Service;
 
 import com.example.unisync.Model.Course;
-import com.example.unisync.Model.User;
 import com.example.unisync.Repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
