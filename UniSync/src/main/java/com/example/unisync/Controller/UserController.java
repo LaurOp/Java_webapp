@@ -1,17 +1,25 @@
 package com.example.unisync.Controller;
 
 import com.example.unisync.DTO.UserDTO;
+import com.example.unisync.Exception.ValidationException;
 import com.example.unisync.Mapper.UserMapper;
 import com.example.unisync.Model.Course;
 import com.example.unisync.Model.User;
 import com.example.unisync.Service.CourseService;
 import com.example.unisync.Service.UserService;
+import com.example.unisync.Exception.LocalExceptionHandler;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.example.unisync.Config.Constants.*;
 
@@ -45,10 +53,12 @@ public class UserController extends BaseController{
     }
 
     @PostMapping("/create")
-    public ResponseEntity<UserDTO> createUserEndpoint(@RequestBody UserDTO user) {
+    public ResponseEntity<UserDTO> createUserEndpoint(@Valid @RequestBody UserDTO user) {
         try {
             User createdUser = userService.createUser(userMapper.map(user));
             return new ResponseEntity<>(userMapper.map(createdUser), HttpStatus.CREATED);
+        } catch (ValidationException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

@@ -32,6 +32,10 @@ public class Constants {
     public static final String PART_OF_THE_COURSE_CANNOT_POST_REPLY = "User is not part of the course. Cannot post reply.";
     public static final String TEST_REPLY_CONTENT = "Test reply content";
     public static final String TEST_MESSAGE_CONTENT = "Test message content";
+    public static final String REGEX_USERNAME = "[a-zA-Z0-9]+";
+    public static final String ONLY_LETTERS_OR_DIGITS = "Username must contain only letters or digits";
+    public static final String INVALID_EMAIL_FORMAT = "Invalid email format";
+    public static final String AT_LEAST_4_CHARACTERS = "Password must contain at least 4 characters";
     private void AppConstants() {
     }
 }
