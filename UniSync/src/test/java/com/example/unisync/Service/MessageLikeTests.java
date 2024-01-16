@@ -37,21 +37,18 @@ public class MessageLikeTests {
 
     @Test
     void likeMessage() {
-        Long userId = 1L;
-        Long messageId = 2L;
-
         User user = new User();
         Message message = new Message();
 
-        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
-        when(messageRepository.findById(messageId)).thenReturn(Optional.of(message));
-        when(messageLikeRepository.findByUserIdAndMessageId(userId, messageId)).thenReturn(null);
+        when(userRepository.findById(1L)).thenReturn(Optional.of(user));
+        when(messageRepository.findById(1L)).thenReturn(Optional.of(message));
+        when(messageLikeRepository.findByUserIdAndMessageId(1L, 1L)).thenReturn(null);
 
-        messageLikeService.likeMessage(userId, messageId);
+        messageLikeService.likeMessage(1L, 1L);
 
-        verify(userRepository, times(1)).findById(userId);
-        verify(messageRepository, times(1)).findById(messageId);
-        verify(messageLikeRepository, times(1)).findByUserIdAndMessageId(userId, messageId);
+        verify(userRepository, times(1)).findById(1L);
+        verify(messageRepository, times(1)).findById(1L);
+        verify(messageLikeRepository, times(1)).findByUserIdAndMessageId(1L, 1L);
         verify(messageLikeRepository, times(1)).save(any(MessageLike.class));
         verify(userRepository, times(1)).save(user);
         verify(messageRepository, times(1)).save(message);
@@ -62,16 +59,13 @@ public class MessageLikeTests {
 
     @Test
     void unlikeMessage() {
-        Long userId = 1L;
-        Long messageId = 2L;
-
         MessageLike existingLike = new MessageLike();
 
-        when(messageLikeRepository.findByUserIdAndMessageId(userId, messageId)).thenReturn(existingLike);
+        when(messageLikeRepository.findByUserIdAndMessageId(1L, 1L)).thenReturn(existingLike);
 
-        messageLikeService.unlikeMessage(userId, messageId);
+        messageLikeService.unlikeMessage(1L, 1L);
 
-        verify(messageLikeRepository, times(1)).findByUserIdAndMessageId(userId, messageId);
+        verify(messageLikeRepository, times(1)).findByUserIdAndMessageId(1L, 1L);
         verify(messageLikeRepository, times(1)).delete(existingLike);
     }
 }

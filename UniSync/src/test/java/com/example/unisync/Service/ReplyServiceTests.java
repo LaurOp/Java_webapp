@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
-class ReplyServiceTest {
+class ReplyServiceTests {
 
     @Mock
     private ReplyRepository replyRepository;
@@ -23,7 +23,7 @@ class ReplyServiceTest {
     @InjectMocks
     private ReplyService replyService;
 
-    public ReplyServiceTest() {
+    public ReplyServiceTests() {
         MockitoAnnotations.openMocks(this);
     }
 

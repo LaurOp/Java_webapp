@@ -56,10 +56,8 @@ class InvitationServiceTests {
 
     @Test
     void deleteInvitation() {
-        long invitationId = 1L;
+        invitationService.delete(1L);
 
-        invitationService.delete(invitationId);
-
-        verify(invitationRepository, times(1)).deleteById(invitationId);
+        verify(invitationRepository, times(1)).deleteById(1L);
     }
 }
